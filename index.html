@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub India</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script>
+        (function() {
+            const theme = localStorage.getItem('libraryTheme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+</head>
+<body>
+
+<button class="profile-icon-btn" id="profileBtn">
+  <i class="ri-user-3-fill"></i>
+</button>
+
+
+<!-- Check login state as soon as possible -->
+<script>
+    (function() {
+        const userSimple = localStorage.getItem('libraryUserSimple');
+        if (!userSimple) {
+            window.location.href = 'login.html';
+        }
+    })();
+</script>
+
+<!-- Show iframe as background and redirect if not logged in -->
+<script>
+(function() {
+    const userSimple = localStorage.getItem('libraryUserSimple');
+    if (!userSimple) {
+        document.write('<iframe src="main.html" class="background-home" frameborder="0" tabindex="-1" aria-hidden="true"></iframe>');
+        setTimeout(function() {
+            window.location.href = 'login.html';
+        }, 800); // Show iframe for 0.8s before redirect
+    }
+})();
+</script>
+
+<header>
+    <!-- Profile Icon Button -->
+    <button class="profile-icon-btn" onclick="window.location.href='login.html'">
+      <i class="ri-user-3-fill"></i>
+    </button>
+    <div class="container">
+        <h1>The <span class="spanish3">Library</span></h1>
+        <div class="menu-toggle">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </div>
+        <nav class="nav-links">
+            <ul> 
+                <li><a href="Blog.html">Categories</a></li>&nbsp;&nbsp;&nbsp;&nbsp;     
+                <li><a href="About.html">About-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                <li><a href="contact.html">Contact-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                <li><a href="author.html">Authors</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+            </ul>
+        </nav>
+        <!-- Welcome message and logout button -->
+        <div id="welcomeBox" style="margin-top:10px;"></div>
+    </div>
+    <div class="container4">
+        <form class="search" id="search-bar">
+            <input type="search" placeholder="Search for books..." class="search__input" id="search-input">
+
+            <div class="search__button" id="search-button">
+                <i class="ri-search-2-line search__icon"></i>
+                <i class="ri-close-line search__close"></i>
+            </div>
+
+            <!-- Suggestions box -->
+            <ul class="search__suggestions" id="suggestions-box"></ul>
+        </form>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h2>Welcome to the <span class="spanish2">Creative</span> Library</h2>
+        <p>Explore our diverse collection of books across various categories.</p>
+    </div>
+</section>
+<section class="top-categories">
+    <div class="container">
+        <h2>Top <span class="spanish">Categories</span></h2>
+        <div class="tabs">
+            <button class="tab-link active" data-category="manga">Manga</button>
+            <button class="tab-link" data-category="comics">Comics</button>
+            <button class="tab-link" data-category="story">Story</button>
+            <button class="tab-link" data-category="nature">Nature</button>
+            <button class="tab-link" data-category="business">Business</button>
+            <button class="tab-link" data-category="computer">Computer</button>
+        </div>
+
+        <!-- Category Cards -->
+        <div class="category-cards active" data-category="manga">
+            <div class="card">
+                <img src="death.jpeg" alt="death note">
+                <div class="card-content">
+                   <h3>Death Note</h3>
+                    <p>"Death Note" is a manga about Light Yagami, a student who gains the power to kill with a notebook. He clashes with the detective L in a high-stakes battle of wits, exploring themes of justice and morality.</p>
+                    <a href="voloume1.html"><button class="tab-link">Show all volumes</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="onepeice.jpeg" alt="One peice">
+                <div class="card-content">
+                    <h3>One peice</h3>
+                    <p>"One peice" is a popular manga series by Elichiro Oda that follows Monkey D.Luffy and his diverse crew as they search for the 
+                        legendary treasure known as the One peice, aiming to become the Pirats King. The series is known for its rich world-building, unique
+                        characters, and epic adventures spanning countless islands and challenges.
+                    </p>
+                    <a href="death.html"><button class="tab-link">Show all volumes</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="bl.jpeg" alt="Arts Book 2">
+                <div class="card-content">
+                    <h3>Bleach V1</h3>
+                    <p>Bleach Volume 1 introduces Ichigo Kurosaki, a high school student with the ability to see ghosts. His life changes when he meets Rukia Kuchiki, a Soul Reaper tasked with defending the living world from evil spirits called Hollows. After Rukia is injured in battle, Ichigo inherits her powers, stepping into a world of supernatural battles and responsibilities.
+                    </p>
+                    <a href="Bleach Volume 01 - PDF Room.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="aot.jpeg" alt="Arts Book 2">
+                <div class="card-content">
+                    <h3>Attack on Titan</h3>
+                    <p>Attack on titan Volume 1 introduces Hajime Isayama, On the brink of extinction as gigantic humanoid creatures, the Titans, devour humans seemingly without reason, and Eren Yeager's world is shattered when his mother becomes a victim, fueling his determination to fight back.</p>
+                    <a href="pdfcoffee.com_attack-on-titan-vol-1-pdf-free.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-cards" data-category="comics">
+            <div class="card">
+                <img src="Space.jpeg" alt="Biography Book 1">
+                <div class="card-content">
+                    <h3>Captain Harlocker</h3>
+                    <p>"captain Harlocker" by jerome Alquie is a comic book that blends science fliction with action, following the adventures of the titular hero in a futuristic setting. The story features a grapping narrative and dynamic illustration, highlighting Captain Harlockerr's battles against formidable foes his quest for justice.</p>
+                    <a href="CapHarlock-FCBD.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="craft.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>Frigiel & Fluffy</h3>
+                    <p>"Frigiel & Fluffy" by Ablaze is a comic series based on the popular youtube channel featuring the adventures of Frigiel adn his trusty companion. Fluffy. Ser in a fantastical world, the series combines humor, action, and friendship as they navigate various quests and challenges.</p>
+                    <a href="FrigielFluffyFCBD.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="monster.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>The Monster's cleanup<br>Guy</h3>
+                    <p>"The Monster's Cleanup Guy" is a comic about a gritty janitor tasked with cleaning up the aftermath of battles between superheroes and villains. While the heroes get the glory, he's left to deal with the monstrous messes, blending dark humor with the everyday challenges of an unsung hero.</p>
+                    <a href="monsters_cleanup_guy_v2.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="tdtf.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>Tales from the dispatch</h3>
+                    <p>"Tales from the Dispatch" is a comic series that dives into the chaotic and often humorous world of emergency dispatchers. It follows their intense, high-stress shifts, capturing the unpredictability of the calls they handle, from the bizarre to the life-threatening, all while showcasing the human side of those behind the phone.</p>
+                    <a href="comic.html" ><button class="tab-link">Show all volumes</button></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="category-cards" data-category="story">
+            <div class="card">
+                <img src="dracula-bram-stoker.jpeg" alt="Biography Book 1">
+                <div class="card-content">
+                    <h3>Dracula</h3>
+                    <p>"Dracula" By Bram Stroker's, tells the chilling tale of count Dracula's move from Transylvania to England, preying on humans to satisfy his thirst for blood, and the brave men and women who dare to stop him. This classic Gothic horror story explores the darkness of human nature and the supernatural, leaving readers on the edge of their seats.</p>
+                    <a href="dracula story.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="3-24-2010.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>The Haunting of <br> Hil house</h3>
+                    <p>"The Haunting of Hill House" by Shirley jackson's classic horror novel, follow four strangers as theyspend a summer in a notorious mansion, confronting the dark forces that dwell within its walls and the deepest fears that haunt their own psyches. This eerie and suspenseful tale explores the blurren lines between reality and the supernatural.</p>
+                    <a href="story 2.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="category-cards" data-category="nature">
+            <div class="card">
+                <img src="n1.jpeg" alt="Biography Book 1">
+                <div class="card-content">
+                    <h3>Walden</h3>
+                    <p>"Walden" by Henry David Thoreau's, the author recounts his two year experment in self-sufficiency and solitude at a cabin near walden pond, exploring themes of nature, spirituality, and the human condition. This influential and thought-provoking book challenges readers to reevaluate their own relationship with the natural world and society </p>
+                    <a href="nature.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="n2.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>Birds <br> Through and opera glass</h3>
+                    <p>"Birds through and opera glass " by Florence A.Merriam, This calssic book is a delightful blend of science storytelling, and nature appreciation, perfect for bird enthusiasts of all ages.</p>
+                    <a href="narure2.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="n3.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>Burgess</h3>
+                    <p>"Burgess" by Thornton Burgess, Such as bedtime story series, offer heartwarming and educational tales of animal adventures, teaching children valuable lessons about friendship, responsibility, and the natural world. With gentle humor and engaging storytelling, Burgess'Stories have delighted readers of all ages with their timeless wisdom and whimsical charm.</p>
+                    <a href="nature3.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-cards" data-category="business">
+            <div class="card">
+                <img src="b1.jpeg" alt="Business Book 1">
+                <div class="card-content">
+                    <h3>The Entreprenure Mindset</h3>
+                    <p>"The Entreprenure Mindset" by Kevin D.Johnson offers insights into the attitudes and behaviours that drive successful entrepreneurship. The book explores key mental stratigies and mindset shifts essential for overcomming challenges and seizing opportunities in the business world.</p>
+                    <a href="business.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="b2.jpeg" alt="Business Book 2">
+                <div class="card-content">
+                    <h3>As A Man Thinketh</h3>
+                    <p>"AS a Man Thiketh" by James Allen is a philosophical self-help book that explores the power of thought in shaping one's life. It emphasizess that a person's thoughts directly influence their character, circumstances, and destiny, advocating for conscious and positive thinking to achieve personal success and fulfillment.</p>
+                    <a href="business2.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="b3.jpeg" alt="Business Book 2">
+                <div class="card-content">
+                    <h3>The Lean Startup</h3>
+                    <p>"The Lean Startup" by Eric Ries is a guide to launching successfull businessman by applying lean principals. The book advocates for rapid prototyping, validated learning, and iterative development to minimize risk and increase the chance of creating a product that meets market demands.</p>
+                    <a href="business3.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="b4.jpeg" alt="Business Book 2">
+                <div class="card-content">
+                    <h3>Think And Grow Rich</h3>
+                    <p>"Think and Grow Rich" by Napoleon Hill is a classic self-help book that outlines principles for achieving sucess and wealth. Based on Hill'sstudy of successfull individuals.  the book emphasizes the power of positive thinking, goal-setting, and perseverance in transforming desires into tangible results. </p>
+                    <a href="business4.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="category-cards" data-category="computer">
+            <div class="card">
+                <img src="cm1.jpeg" alt="Computer Book 1">
+                <div class="card-content">
+                    <h3>Learning Web Design</h3>
+                    <p>Learning Web Design is a comprehensive guide for beginners in web design, covering the basics of HTML, CSS, and JavaScript. It offers practical tutorials and examples to help readers build and style their own websites, with a focus on creating visually appealing and functional web pages.</p>
+                    <a href="Learning Web Design_ A Beginners Guide to HTML, CSS, JavaScript, and Web Graphics - PDF Room.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="cm2.jpeg" alt="Computer Book 2">
+                <div class="card-content">
+                    <h3>Beginning<br>
+                        HTML, XHTML,
+                        CSS, <br>and JavaScript</h3>
+                    <p>Beginning HTML, XHTML, CSS, and JavaScript provides a foundational introduction to essential web technologies. The book covers HTML and XHTML for structuring content, CSS for styling, and JavaScript for adding interactivity, making it a great starting point for those new to web development.</p>
+                    <a href="Beginning HTML, XHTML, CSS and JavaScript - PDF Room.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="additional-content">
+    <div class="container">
+        <h2>Explore More Categories</h2>
+        <p>Delve into a wide range of subjects and find books that will enlighten and entertain you.</p>
+        <p>This website is created by <span style="color: rgb(16, 183, 225);">Mr.K</span></p>
+        <a href="#">Browse All Categories</a>
+        <h3>This section will update soon</h3>
+    </div>
+</section>
+
+
+<script>
+    // Handle tab switching
+    const tabs = document.querySelectorAll('.tab-link');
+    const cardContainers = document.querySelectorAll('.category-cards');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Hide all card containers and show the related one
+            const category = tab.getAttribute('data-category');
+            cardContainers.forEach(container => {
+                if (container.getAttribute('data-category') === category) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+        });
+    });
+
+    // Handle mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+
+    //seach bar ke liye he ji java 
+const toggleSearch = (search, button) => {
+    const searchBar = document.getElementById(search),
+        searchButton = document.getElementById(button);
+
+    searchButton.addEventListener('click', () => {
+        searchBar.classList.toggle('show-search');
+    });
+}
+
+toggleSearch('search-bar', 'search-button');
+
+const books = [
+    { title: 'The Enchanted Forest', url: 'booksearch.html' },
+    { title: 'Book2', url: 'book2.html' },
+    { title: 'Book3', url: 'book3.html' },
+    { title: 'Book4', url: 'book4.html' },
+    { title: 'Book5', url: 'book5.html' }
+];
+
+const searchInput = document.getElementById('search-input');
+const suggestionsBox = document.getElementById('suggestions-box');
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    suggestionsBox.innerHTML = '';
+    if (query.length > 0) {
+        const filteredBooks = books.filter(book => book.title.toLowerCase().includes(query));
+        if (filteredBooks.length > 0) {
+            suggestionsBox.classList.add('active');
+            filteredBooks.forEach(book => {
+                const li = document.createElement('li');
+                li.textContent = book.title;
+                li.addEventListener('click', () => {
+                    window.location.href = book.url;
+                });
+                suggestionsBox.appendChild(li);
+            });
+        } else {
+            suggestionsBox.classList.remove('active');
+        }
+    } else {
+        suggestionsBox.classList.remove('active');
+    }
+});
+
+// Handle form submission (Enter key or search button click)
+const searchBar = document.getElementById('search-bar');
+searchBar.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim().toLowerCase();
+
+    const matchedBook = books.find(book => book.title.toLowerCase() === query);
+    if (matchedBook) {
+        window.location.href = matchedBook.url;
+    } else {
+        alert('Book not found.');
+    }
+});
+
+window.addEventListener('load', function() {
+  document.getElementById('loader').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('loader').style.display = 'none';
+  }, 400);
+});
+const profileBtn = document.getElementById('profileBtn');
+
+profileBtn.addEventListener('click', () => {
+    const userProfile = localStorage.getItem('libraryUser');
+    if (userProfile) {
+        // Redirect to profile page
+        window.location.href = 'profile.html';
+    } else {
+        // Redirect to login page
+        window.location.href = 'login.html';
+    }
+});
+
+    // Show welcome message and logout button if logged in
+(function() {
+    const userSimple = localStorage.getItem('libraryUserSimple');
+    if (userSimple) {
+        const user = JSON.parse(userSimple);
+        const welcomeBox = document.getElementById('welcomeBox');
+        if (welcomeBox) {
+            welcomeBox.innerHTML = `<span style="font-weight:600;">Welcome, ${user.username}!</span> <button id="logoutBtn" style="margin-left:10px;padding:4px 12px;border-radius:8px;background:#0078d7;color:#fff;border:none;cursor:pointer;">Logout</button>`;
+            document.getElementById('logoutBtn').onclick = function() {
+                localStorage.removeItem('libraryUserSimple');
+                window.location.href = 'login.html';
+            };
+        }
+    }
+})();
+    </script>
+</body>
+</html>

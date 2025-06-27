@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>The <span class="spanish3">Library</span></h1>
+        <div class="menu-toggle">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>&nbsp;&nbsp;&nbsp;&nbsp;   
+                    <li><a href="Blog.html">Categories</a></li>&nbsp;&nbsp;&nbsp;&nbsp;     
+                    <li><a href="About.html">About-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="contact.html">Contact-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="author.html">Authors</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h2>Welcome to the <span class="spanish2">Author</span> section</h2>
+        <p>Explore our diverse collection of books across various categories.</p>
+    </div>
+</section>
+
+<section class="top-categories">
+    <div class="container">
+        <h2>Top <span class="spanish">Authors</span></h2>
+        <div class="tabs">
+            <button class="tab-link active" data-category="arts">Inder</button>
+            <button class="tab-link" data-category="Author">Stephen king</button>
+        </div>
+
+        <!-- Category Cards -->
+        <div class="category-cards active" data-category="arts">
+            <div class="card">
+                <img src="uc.jpeg" alt="Friendship img">
+                <div class="card-content">
+                   <h3>Unseen connections <br> Chapter-1</h3>
+                    <p>"Unseen connections" author inder, delves into is coaching life, recounting the trails and joy of his early days. He shares vivid memories of engaging classes and the camaraderie with friends saniya, sakshi, mansi, prabhat, and anuj, illustrating how these connections made the journey both challenging and rewarding.  </p>
+                    <a href="chapter1.html"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="uc.jpeg" alt="friendship img">
+                <div class="card-content">
+                    <h3>Unseen connections<br> chapter-2</h3>
+                    <p>"Unseen connections ch-2" author inder explores a chapter where saniya reaches out for help but doesn't receive a timely reply, promoting an apology later. The narrative captures their vibrant Holi celebrating with friends saniya, sakshi, mansi and anuj, where they enjoy games like Truth & Dare, and later, inder and saniya plan a special surprise for Sakshi's birthday party.</p>
+                    <a href="chapter2.html"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-cards" data-category="Author">
+            <div class="card">
+                <img src="stand.jpeg" alt="Biography Book 1">
+                <div class="card-content">
+                    <h3>The Stand</h3>
+                    <p>A post-apocalyptic horror novel by Stephen King, "The Stand" follows survivors of a global pandemic as they become embroiled in a battle between good and evil, with the charismatic and malevolent Randall Flagg leading the dark side.</p>
+                    <a href="The-Stand-pdf.pdf"><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="carrie.jpeg" alt="Biography Book 2">
+                <div class="card-content">
+                    <h3>Carrie</h3>
+                    <p>Stephen King's debut novel, "Carrie," tells the story of a shy, bullied high school girl who discovers she has telekinetic powers, which she ultimately uses to exact revenge on her tormentors during a disastrous prom night.
+                    </p>
+                    <a href="epdf.tips_carrie.pdf" ><button class="tab-link">Read Now</button></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="additional-content">
+    <div class="container">
+        <h2>Explore More Categories</h2>
+        <p>Delve into a wide range of subjects and find books that will enlighten and entertain you.</p>
+        <p>This website is created by <span style="color: rgb(16, 183, 225);">Mr.K</span></p>
+        <a href="#">Browse All Categories</a>
+        <h3>This section will update soon</h3>
+    </div>
+</section>
+
+
+<script>
+    // Handle tab switching
+    const tabs = document.querySelectorAll('.tab-link');
+    const cardContainers = document.querySelectorAll('.category-cards');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Hide all card containers and show the related one
+            const category = tab.getAttribute('data-category');
+            cardContainers.forEach(container => {
+                if (container.getAttribute('data-category') === category) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+        });
+    });
+
+    // Handle mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

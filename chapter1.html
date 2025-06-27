@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bond of Friendship - Novel</title>
+    <style>
+        /* Base styles */
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+        }
+
+        /* Header */
+        header {
+            
+    background-color: #264653;
+    color: #fff;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+            transform: rotateX(0deg);
+            animation: headerTitle 1.5s ease-out;
+            flex-direction:column;
+            align-items: flex-start;
+            text-align: center;
+            
+        }
+
+        @keyframes headerTitle {
+            0% {
+                transform: rotateX(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Navigation */
+        .nav-links {
+            background: rgb(137 163 159 / 80%);
+            padding: 1rem 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            opacity: 0;
+            animation: fadeInUp 1.5s forwards;
+            animation-delay: 1s;
+            border-bottom: 2px solid #03322c;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background:#1da5ab;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: perspective(500px) rotateX(0deg) rotateY(0deg);
+        }
+
+        nav ul li a:hover {
+            background: #004d40;
+            color: #e8f0f2;
+            transform: perspective(500px) rotateX(-5deg) rotateY(5deg);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 1.5s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        section {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            animation: fadeInUp 1s forwards;
+        }
+
+        section:nth-of-type(1) {
+            animation-delay: 2s;
+        }
+
+        section:nth-of-type(2) {
+            animation-delay: 2.5s;
+        }
+
+        section:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        section h2 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            color: #004d40;
+            transition: color 0.3s ease;
+        }
+
+        section h2:hover {
+            color: #00796b;
+        }
+
+        .chapter {
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #00796b;
+        }
+
+        .chapter p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 -6px 18px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 2s;
+            border-top: 4px solid #004d40;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #33e0cc;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.2rem;
+            display: none;
+            transition: opacity 0.3s ease, background 0.3s ease;
+            z-index: 1000;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+        }
+
+        .back-to-top:hover {
+            background: #004d40;
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes headerTitle {
+            0% {
+                transform: rotateX(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes hover3D {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(10deg) rotateY(10deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            }
+        }
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.video-section {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #004d40 0%, #fad0c4 100%);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    margin: 2rem auto; /* Center the section */
+}
+
+.video-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container video {
+    width: 300px; /* Smaller width */
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Start hidden */
+    transform: scale(0.8); /* Start smaller */
+    animation: fadeInScale 1s ease forwards; /* Apply animation */
+}
+
+/* Hover effect */
+.video-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.video-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 1rem;
+}
+/* Keyframes for the fadeInScale animation */
+@keyframes fadeInScale {
+    to {
+        opacity: 1; /* Fully visible */
+        transform: scale(1); /* Normal size */
+    }
+}
+
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Unseen connections</h1>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#">Chapter 1</a></li> 
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section id="chapter1">
+            <h2>Chapter 1: Bond of Friendship</h2>
+            <div class="chapter">
+                <h3>The First Meeting</h3>
+                <p>In the heart of Uttam Nagar, New Delhi, The Freedom English Academy (FEA) stood as a place where students come to learn and grow.</p>
+                <p>Day: 1<br>I walked into the classroom slowly, my heart pounding with nervousness. I took a seat next to Mr. Anuj and Prabhat, who were both excited and apprehensive about the new experience.</p>
+                <p>Deepak sir, the facilitator, welcomed the small group of students with a warm smile. “Welcome to The Freedom English Academy,” he spoke. “I’m glad to see such eager faces here today.”</p>
+                <p>Inder’s nerves got worse as he introduced himself, stumbling over his words in front of the small audience. Deepak sir noticed his discomfort and gave him an encouraging smile, which helped him feel a bit better. “Hi, my name is Inderpreet Singh. I’m here to improve my English and communication skills.”</p>
+                <p>Next, it was Mr. Anuj’s turn to introduce himself. He stood up and spoke, “Hi, I’m Anuj. I’m a Mathematics teacher. I want to improve my English so I can communicate better with my students and help them more effectively. Also, I enjoy learning new things.”</p>
+                <p>Prabhat introduced himself after Anuj. Throughout the class, Inder found it hard to concentrate because he was so nervous.</p>
+            </div>
+            <div class="chapter">
+                <h3>New Beginnings</h3>
+                <p>On the second day, more students joined FEA. Inder arrived early at the Freedom English Academy, determined not to repeat his mistake from the previous day.</p>
+                <p>One of the new students was Sakshi. She walked in with a confident stride, a radiant smile that immediately drew everyone's attention. She exuded an aura of self-assurance and grace, making her presence known in the small classroom. Despite her confidence, Sakshi was also known for her politeness and kindness, traits that made her well-liked by everyone she met.</p>
+                <p>Deepak sir started the class with introductions. "Welcome, everyone. It's great to see some new faces today. Let's start with introductions."</p>
+                <p>Sakshi stood up first. "Hi, I'm Sakshi. I'm excited to be here and looking forward to learning and growing with all of you." Her tone was polite and sincere, making everyone feel welcomed.</p>
+                <p>Inder, feeling slightly more confident than the day before, introduced himself again for the benefit of the new students. “Hi, I'm Inder. I'm here to improve my English and make new friends.”</p>
+                <p>Then, a boy named Kushal stood up. He had a confident smile and looked very sure of himself. "Hi, I'm Kushal. I love learning and making new friends. My dream is to become a successful person. I'm excited to be here." Kushal’s presence was calming and reassuring. Throughout the class, he actively participated, asking questions and engaging in discussions. His enthusiasm and friendliness made him easy to talk to, and his confidence was infectious.</p>
+                <p>On the third day, the classroom buzzed with excitement as new students joined. Among them was Mansi Yadav.</p>
+                <p>Mansi had short hair and a confident look. At first, Inder was confused about her gender. Deepak sir noticed the uncertainty and stepped in to introduce Mansi. "Everyone, please welcome Mansi Yadav. She's here to improve her English and has a dream of becoming a Delhi police officer." With Deepak sir's introduction, Inder's confusion cleared up. He realized that Mansi was indeed a girl, and he felt impressed by her determination to pursue her dream.</p>
+                <p>On the fourth day, the room was full of excitement as a new student joined the class. Saniya Chaurasiya walked in with confidence and beauty that caught everyone’s attention. Saniya introduced herself with a warm smile, saying, "Hi, I'm Saniya Chaurasiya. I'm happy to be here and eager to learn with all of you."</p>
+                <p>Saniya's confidence was clear. She spoke well and made friends easily. Her energy made everyone feel good and excited to learn. In group activities, Saniya's leadership stood out. She encouraged her classmates, listened to their ideas, and helped everyone do their best. Her kindness made people feel valued.</p>
+                <p>On the fifth day at FEA, the class felt different. There was a sense of new beginnings in the air. The small group of students had started to bond, and friendships were forming. Sakshi's confidence and kindness continued to inspire everyone. Her active participation and friendly nature made the class feel lively and welcoming.</p>
+                <p>Kushal, who had joined recently, was also making his mark. He was very confident and had big dreams of becoming a successful person. His enthusiasm was infectious, and he quickly became one of Inder's best friends. Kushal and Inder talked about many things, especially their school life and future dreams. They found common ground and supported each other.</p>
+                <p>Saniya Chaurasiya, who had joined on the fourth day, impressed everyone with her confidence and beauty. Her presence added a new dynamic to the group, and she quickly became an important part of the class. Saniya was smart and quick to understand new topics. She often helped her classmates with their work, explaining things in simple terms. Everyone liked talking to her because she listened and cared. Her friendly nature made her popular among her peers.</p>
+                <p>In group activities, Saniya showed great leadership. She organized tasks well and made sure everyone was involved. Her positive attitude and encouragement helped the group work better together.</p>
+                <p>Mansi's positive attitude rubbed off on everyone. She was always cheerful and willing to help. People admired her for being so friendly and caring. Even though Mansi was confident, she was also easy to talk to and always ready to help others. Her kindness and concern for others made her well-liked by everyone in the class. As Mansi's friendship circle grew, it was clear that she was everyone's favorite. Her presence made FEA a happier place for everyone.</p>
+                <p>This new journey at FEA was just beginning, and Mansi's presence made it even more special. With her confidence and kindness, she was sure to leave a lasting impression on everyone.</p>
+            </div>
+        </section>
+
+       
+
+    </main>
+    <footer>
+        <p>© 2024 Bond of Friendship. All Rights Reserved.</p>
+    </footer>
+    <a href="chapter2.html"><button id="back-to-top" class="back-to-top">Next chapter</button></a>
+    <script>
+        window.addEventListener('scroll', () => {
+            const button = document.getElementById('back-to-top');
+            if (window.scrollY > 200) {
+                button.classList.add('show');
+            } else {
+                button.classList.remove('show');
+            }
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+        
+</body>
+</html>

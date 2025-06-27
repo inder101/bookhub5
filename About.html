@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="Aboutimg">
+    <header>
+        <div class="container">
+            <h1> The <span class="spanish3">Library</span></h1>
+            <div class="menu-toggle">
+                <span class="bar1"></span>
+                <span class="bar2"></span>
+                <span class="bar3"></span>
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>&nbsp;&nbsp;&nbsp;&nbsp;   
+                    <li><a href="Blog.html">Categories</a></li>&nbsp;&nbsp;&nbsp;&nbsp;     
+                    <li><a href="About.html">About-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="contact.html">Contact-us</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="author.html">Authors</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to <span class="spanish2">About-us</span> section</h2>
+        </div>
+    </section>
+    <section class="about-us">
+        <div class="contents1">
+            <h2>Welcome to Our Book Library</h2>
+            <p>At our library, we believe in the power of stories. Whether you're seeking an escape into a world of fiction or looking for knowledge to inspire your next big idea, our collection is curated to fuel your imagination. Our mission is to make literature accessible to everyone and to create a community of readers who can explore, share, and grow together.</p>
+
+            <p>Founded in 2024, our library has grown from a small collection of local books to a vast archive of literary treasures from around the world. We are passionate about preserving the timeless art of reading in the digital age and are constantly adding new titles to our collection.</p>
+
+            <p>Join us in our journey to explore the world one book at a time. Whether you're here to discover a new favorite author or to revisit a beloved classic, our doors are always open to book lovers like you.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Book Library. New launched by <span style="color: aqua;">Mr.</span> K</p>
+    </footer>
+<script>
+     // Handle mobile menu toggle
+     const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bond of Friendship - Novel</title>
+    <style>
+        /* Base styles */
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+        }
+
+        /* Header */
+        header {
+            
+    background-color: #264653;
+    color: #fff;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+            transform: rotateX(0deg);
+            animation: headerTitle 1.5s ease-out;
+            flex-direction:column;
+            align-items: flex-start;
+            text-align: center;
+            
+        }
+
+        @keyframes headerTitle {
+            0% {
+                transform: rotateX(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Navigation */
+        .nav-links {
+            background: rgb(137 163 159 / 80%);
+            padding: 1rem 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            opacity: 0;
+            animation: fadeInUp 1.5s forwards;
+            animation-delay: 1s;
+            border-bottom: 2px solid #03322c;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background:#1da5ab;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: perspective(500px) rotateX(0deg) rotateY(0deg);
+        }
+
+        nav ul li a:hover {
+            background: #004d40;
+            color: #e8f0f2;
+            transform: perspective(500px) rotateX(-5deg) rotateY(5deg);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 1.5s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        section {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            animation: fadeInUp 1s forwards;
+        }
+
+        section:nth-of-type(1) {
+            animation-delay: 2s;
+        }
+
+        section:nth-of-type(2) {
+            animation-delay: 2.5s;
+        }
+
+        section:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        section h2 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            color: #004d40;
+            transition: color 0.3s ease;
+        }
+
+        section h2:hover {
+            color: #00796b;
+        }
+
+        .chapter {
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #00796b;
+        }
+
+        .chapter p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 -6px 18px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 2s;
+            border-top: 4px solid #004d40;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #33e0cc;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.2rem;
+            display: none;
+            transition: opacity 0.3s ease, background 0.3s ease;
+            z-index: 1000;
+            transform: translateZ(0);
+            transform-style: preserve-3d;
+        }
+
+        .back-to-top:hover {
+            background: #004d40;
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes headerTitle {
+            0% {
+                transform: rotateX(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes hover3D {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(10deg) rotateY(10deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            }
+        }
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.video-section {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #004d40 0%, #fad0c4 100%);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    margin: 2rem auto; /* Center the section */
+}
+
+.video-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container video {
+    width: 300px; /* Smaller width */
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Start hidden */
+    transform: scale(0.8); /* Start smaller */
+    animation: fadeInScale 1s ease forwards; /* Apply animation */
+}
+
+/* Hover effect */
+.video-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.video-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 1rem;
+}
+/* Keyframes for the fadeInScale animation */
+@keyframes fadeInScale {
+    to {
+        opacity: 1; /* Fully visible */
+        transform: scale(1); /* Normal size */
+    }
+}
+
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Unseen connections</h1>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#">Chapter 2</a></li> 
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+        
+
+        <section id="chapter2">
+            <h2>Chapter 2: My Life Journey</h2>
+            <div class="chapter">
+                <h3>Unexpected Encounters</h3>
+                <p>In their new journey at the Freedom English Academy, unexpected encounters became the highlight of their days. One afternoon, as the clock ticked past 4:00 PM, Inder found himself at the Uttam Nagar bus stand, surrounded by the hustle and bustle of the city. It was there that he spotted Mansi and Saniya, his classmates from FEA.</p>
+                <p>Excited to see each other outside of the academy, they greeted one another with smiles and exchanged stories about their day. As they strolled through the busy streets, the aroma of street food beckoned them to a nearby stall. Inder insisted on treating his new friends to some snacks as they continued their conversation.</p>
+                <p>However, as they enjoyed their snacks, Inder glanced at his watch and realized he was running late for his computer class. With a hurried goodbye, he promised to catch up with Mansi and Saniya later. Despite the rushed farewell, Inder couldn't help but feel grateful for the unexpected friendship that had blossomed between them.</p>
+                <p>As he hurried off to class, Inder reflected on how their chance encounter had brightened his day. Little did he know, this was just the beginning of many more memorable moments and adventures with his newfound friends at the Freedom English Academy.</p>
+            </div>
+            <div class="chapter">
+                <h3>Message</h3>
+                <p>As weeks went by, I got used to my routine at FEA. One night, I received a message from Saniya, a fellow student I had seen in class. She needed my help with something, and I felt a mix of nervousness and excitement. Though unsure if I could assist her, I decided to take some time before replying, feeling a bit overwhelmed by the request.</p>
+                <p>However, as days passed, I couldn't shake off the feeling of guilt. I should help. On January 27, Saniya messaged me again. I decided to reply to Saniya's message. "Hi Saniya, sorry for the delay. How can I help?"</p>
+                <p>Saniya responded quickly, expressing gratitude and understanding. She didn’t mention the delay, which relieved me. This small interaction made me realize that I could offer assistance and support to others, even if I initially felt uncertain.</p>
+                <p>Later on the same day, I received another message from Saniya. This time, Saniya needed help related to a Duolingo class code, but I didn't have one to provide. "Hi Saniya, I'm sorry, but I don't have the Duolingo code," I replied.</p>
+                <p>Saniya responded with a brief "Okay, no problem. Thanks anyway!" and I felt a sense of disappointment for not being able to help her this time. However, I also recognized that it was okay to admit when I didn't have the answer and that I could still be supportive in other ways.</p>
+                <p>After a month at FEA, Saniya, and I, along with our classmates, participated in various activities together. Slowly, we became friends. We talked every day and sat together in class. Our facilitator, Deepak sir, was very nice and supportive, making the learning environment comfortable and encouraging.</p>
+                <p>During this time, I also became friends with Mansi. We bonded quickly and soon became inseparable, often referring to each other as "crime partners" due to our shared sense of humor and adventurous spirit. Mansi's friendship added a new layer of fun and excitement to my life, making my experience at FEA even more enjoyable.</p>
+            </div>
+            <div class="chapter">
+                <h3>Growing Friendships</h3>
+                <p>After a month at FEA, Inder and his classmates began participating in activities together. Slowly they became friends. They talked every day and sat together in class. Their facilitator, Deepak sir, was very nice and supportive. Inder and Mansi, who soon became his partner in crime.</p>
+            </div>
+            <div class="chapter">
+                <h3>Holi Celebration</h3>
+                <p>As Holi approached, Inder and his friends—Saniya, Anuj, Mansi, and Vanshika—decided to celebrate together. They planned to play Holi near FEA at the park by pillar no. 665 in Uttam Nagar. Everyone brought gulal, but Sakshi di surprised them with a permanent color spray.</p>
+                <p>The celebration began with Inder teaming up with Mansi and Vanshika to be the first to color Saniya. They laughed and ran around the park, eagerly waiting for Sakshi di to arrive. Once she showed up, they started the real fun. Sakshi di grabbed Saniya and Mansi, and together they played Holi with great enthusiasm.</p>
+                <p>Inder, trying to escape Sakshi Di’s spray, hid behind a tree. But Anuj, Saniya, and Mansi caught him and doused him in colors. In the excitement, some color accidentally went into Saniya's eye. They quickly helped her wash it out, and luckily, she was fine and laughed it off.</p>
+                <p>The park echoed with their laughter and joy as they celebrated the festival of colors. After playing Holi, the group decided to enjoy some street food. They went to nearby stalls and indulged in delicious treats like Gol gape, chaat, the flavors and the fun made the day even more special. They shared stories and jokes, creating memories that would last a lifetime.</p>
+                <p>I want to write many things but it’s hard to express our emotions in English. I’m confused in many things but I know I can improve myself by writing.</p>
+            </div>
+            <div class="chapter">
+                <h3>Truth and Dare</h3>
+                <p>One day, Saniya gave Kushal a big dare. “Kushal,” she said with a smile, “I dare you to sing a song and send me a video.”</p>
+                <p>Kushal, who was usually shy, was surprised. “I’ll sing for you tomorrow,” he said. “But I’ll do it in person.”</p>
+                <p>The next day, Kushal felt nervous. He didn’t want to sing in front of everyone. He tried to put it off, but eventually, he had to face it.</p>
+                <p>When the time came, Kushal went to the meeting spot. He was scared but started singing. At first, his voice was shaky, but he soon found his confidence. Saniya and the others cheered for him when he finished.</p>
+                <p>Kushal felt relieved and happy. The game of Truth and Dare had not only been fun but had also helped him become braver. The friends continued to play, and Kushal’s performance was something they all remembered fondly.</p>
+                <p>Kushal</p>
+            </div>
+            <div class="chapter">
+                <h3>Birthday Party</h3>
+                <p>Kushal, Inder, and Saniya planned to celebrate Sakshi’s birthday on May 3, , since Inder had an exam on May 4. Unfortunately, Kushal couldn’t join us that day.</p>
+                <p>Saniya and I bought a chocolate cake for Sakshi. We celebrated at the Metro Restaurant in Uttam Nagar. Our friends Anuj, Prabhat, Manisha, Samir, Tiya, Fatimah, and Shama joined us.</p>
+                <p>Sakshi cut the cake, and it was my first time celebrating a friend's birthday party. I enjoyed every moment. We played games, talked, and had a lot of fun.</p>
+                <p>We also recorded a special video during the celebration, which made the day even more memorable.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Bond of Friendship. By inder. All Rights Reserved.</p>
+    </footer>
+    
+    <a href="chapter1.html"><button id="back-to-top" class="back-to-top">Previous chapter</button></a>
+    <script>
+        window.addEventListener('scroll', () => {
+            const button = document.getElementById('back-to-top');
+            if (window.scrollY > 200) {
+                button.classList.add('show');
+            } else {
+                button.classList.remove('show');
+            }
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

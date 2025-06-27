@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Library | Login System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f0f0 60%, #e6f2fb 100%);
+            margin: 0;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        .background-home {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            filter: blur(10px) brightness(0.92) grayscale(0.1);
+            pointer-events: none;
+            transition: filter 0.4s;
+            object-fit: cover;
+            border: none;
+        }
+
+        body.modal-open .background-home {
+            filter: blur(18px) brightness(0.75) grayscale(0.2);
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        #openAuth {
+            background: linear-gradient(90deg, #0078d7 0%, #00c6fb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            padding: 18px 56px;
+            font-size: 1.3em;
+            font-weight: 700;
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.13);
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        #openAuth:hover {
+            background: linear-gradient(90deg, #005fa3 0%, #00a6d7 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.45);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px 36px 32px 36px;
+            border-radius: 24px;
+            min-width: 350px;
+            max-width: 94vw;
+            position: relative;
+            z-index: 10000;
+            box-shadow: 0 8px 40px 0 rgba(0, 120, 215, 0.10), 0 1.5px 8px 0 rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: modalPop 0.35s cubic-bezier(.68, -0.55, .27, 1.55);
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: scale(0.92) translateY(30px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            cursor: pointer;
+            font-size: 2em;
+            color: #bbb;
+            transition: color 0.2s;
+            z-index: 2;
+        }
+
+        .close:hover {
+            color: #0078d7;
+        }
+
+        h2 {
+            color: #0078d7;
+            margin-bottom: 18px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin: 10px 0 0 0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.5px solid #e0e0e0;
+            background: #f8fafd;
+            font-size: 1.08em;
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border: 1.5px solid #0078d7;
+            box-shadow: 0 0 0 2px #e6f2fb;
+            background: #f4faff;
+        }
+
+        #message.error {
+            color: #d32f2f;
+            background: #fff0f0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 8px 0 0 0;
+            font-size: 0.98em;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #ffd6d6;
+            display: none;
+        }
+
+        button#authActionBtn {
+            width: 100%;
+            background: linear-gradient(90deg, #0078d7 0%, #00c6fb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 0;
+            font-weight: 700;
+            margin-top: 18px;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 16px rgba(0, 120, 215, 0.08);
+            transition: background 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+
+        button#authActionBtn:hover {
+            background: linear-gradient(90deg, #005fa3 0%, #00a6d7 100%);
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .toggle-auth {
+            margin-top: 10px;
+            font-size: 0.98em;
+            color: #444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        .toggle-auth:hover {
+            color: #0078d7;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafd;
+            border: 1.5px solid #e0e0e0;
+            color: #444;
+            border-radius: 12px;
+            padding: 13px 0;
+            margin-top: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            gap: 12px;
+            font-size: 1.05em;
+            width: 100%;
+            transition: border 0.2s, background 0.2s;
+        }
+
+        .social-btn:hover {
+            border: 1.5px solid #0078d7;
+            background: #e6f2fb;
+        }
+
+        .social-btn img {
+            width: 22px;
+            height: 22px;
+        }
+
+        @media (max-width: 500px) {
+            .modal-content {
+                min-width: 90vw;
+                padding: 24px 8vw 20px 8vw;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            #openAuth {
+                font-size: 1em;
+                padding: 14px 18vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Show iframe only if not logged in -->
+    <script>
+        if (!localStorage.getItem('libraryUserSimple')) {
+            document.write('<iframe src="index.html" class="background-home" frameborder="0" tabindex="-1" aria-hidden="true"></iframe>');
+        }
+    </script>
+    <div class="centered">
+        <button id="openAuth">Login / Sign Up</button>
+    </div>
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAuth">&times;</span>
+            <h2 id="authTitle">Login</h2>
+            <!-- IMPORTANT CHANGE: Changed from 'authUsername' to 'authEmail' for Firebase Auth -->
+            <input type="email" id="authEmail" placeholder="Email">
+            <input type="password" id="authPassword" placeholder="Password">
+            <input type="password" id="authConfirmPassword" placeholder="Confirm Password" style="display:none;">
+            <div id="message" class="error"></div>
+            <button id="authActionBtn">Login</button>
+            <button class="toggle-auth" id="toggleAuthMode">Don't have an account? Sign Up</button>
+            <button class="social-btn" id="googleLoginBtn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                Login with Google
+            </button>
+            <button class="social-btn" id="facebookLoginBtn">
+                <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook logo">
+                Login with Facebook
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs - These are essential for Firebase to work! -->
+    <script type="module">
+        // Apply dark mode/theme on page load if set in localStorage
+        (function() {
+            const theme = localStorage.getItem('libraryTheme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signInWithPopup,
+            GoogleAuthProvider,
+            FacebookAuthProvider
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6mDkFO-CrTGeO1MKdRPSEfPPjFookWVc",
+            authDomain: "bookhub-india.firebaseapp.com",
+            projectId: "bookhub-india",
+            storageBucket: "bookhub-india.appspot.com",
+            messagingSenderId: "847996149082",
+            appId: "1:847996149082:web:7f3924a98c27a0cc20e763"
+        };
+
+        // Initialize Firebase (modular SDK)
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // === UI Element References ===
+        const authModal = document.getElementById('authModal');
+        const openAuth = document.getElementById('openAuth');
+        const closeAuth = document.getElementById('closeAuth');
+        const authTitle = document.getElementById('authTitle');
+        const authEmail = document.getElementById('authEmail');
+        const authPassword = document.getElementById('authPassword');
+        const authConfirmPassword = document.getElementById('authConfirmPassword');
+        const authActionBtn = document.getElementById('authActionBtn');
+        const toggleAuthMode = document.getElementById('toggleAuthMode');
+        const message = document.getElementById('message');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const facebookLoginBtn = document.getElementById('facebookLoginBtn');
+
+        let isLogin = true; // Tracks if we're in login or signup mode
+
+        // === Helper Functions ===
+
+        // Function to set the authentication form mode (Login/Sign Up)
+        function setAuthMode(login) {
+            isLogin = login;
+            if (isLogin) {
+                authTitle.textContent = "Login";
+                authActionBtn.textContent = "Login";
+                toggleAuthMode.textContent = "Don't have an account? Sign Up";
+                authConfirmPassword.style.display = "none";
+            } else {
+                authTitle.textContent = "Sign Up";
+                authActionBtn.textContent = "Sign Up";
+                toggleAuthMode.textContent = "Already have an account? Login";
+                authConfirmPassword.style.display = "block";
+            }
+            message.style.display = "none"; // Clear any previous error messages
+            authEmail.value = "";
+            authPassword.value = "";
+            authConfirmPassword.value = "";
+        }
+
+        // Function to redirect to the main application page
+        function openMainPage() {
+            window.location.href = "index.html";
+        }
+
+        // Helper to save user profile and redirect
+        async function saveProfileAndRedirect() {
+            // Wait for auth.currentUser to be available
+            let tries = 0;
+            let currentUser = auth.currentUser;
+            while (!currentUser && tries < 10) {
+                await new Promise(r => setTimeout(r, 100));
+                currentUser = auth.currentUser;
+                tries++;
+            }
+            if (currentUser) {
+                const userProfile = {
+                    fullName: currentUser.displayName || currentUser.email.split('@')[0],
+                    email: currentUser.email,
+                    username: currentUser.email.split('@')[0],
+                    membershipType: "Basic"
+                };
+                localStorage.setItem('libraryUser', JSON.stringify(userProfile));
+            }
+            openMainPage();
+        }
+
+        // === Event Listeners for UI Interactions ===
+
+        // Open the authentication modal
+        openAuth.onclick = () => {
+            authModal.classList.add('show');
+            document.body.classList.add('modal-open');
+            setAuthMode(true); // Default to login mode when opening
+        };
+
+        // Close the authentication modal
+        closeAuth.onclick = () => {
+            authModal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+        };
+
+        // Close modal if clicked outside of the content
+        window.onclick = (event) => {
+            if (event.target === authModal) {
+                authModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            }
+        };
+
+        // Toggle between Login and Sign Up modes
+        toggleAuthMode.onclick = () => {
+            setAuthMode(!isLogin);
+        };
+
+        // === Firebase Authentication Logic ===
+
+        // Email/Password Login or Sign Up
+        authActionBtn.onclick = async () => {
+            message.style.display = "none"; // Hide previous messages
+            const email = authEmail.value.trim();
+            const password = authPassword.value.trim();
+            const confirmPassword = authConfirmPassword.value.trim();
+
+            if (!email || !password) {
+                message.textContent = "Please enter both email and password.";
+                message.style.display = "block";
+                return;
+            }
+
+            if (!isLogin && password !== confirmPassword) {
+                message.textContent = "Passwords do not match.";
+                message.style.display = "block";
+                return;
+            }
+
+            try {
+                if (isLogin) {
+                    // Login
+                    await signInWithEmailAndPassword(auth, email, password);
+                    // Save simple login state
+                    localStorage.setItem('libraryUserSimple', JSON.stringify({ username: email.split('@')[0] }));
+                    await saveProfileAndRedirect();
+                } else {
+                    // Sign Up
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    // Save simple login state
+                    localStorage.setItem('libraryUserSimple', JSON.stringify({ username: email.split('@')[0] }));
+                    await saveProfileAndRedirect();
+                }
+            } catch (error) {
+                message.textContent = error.message;
+                message.style.display = "block";
+            }
+        };
+
+        // Google Login
+        googleLoginBtn.onclick = async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+                await saveProfileAndRedirect();
+            } catch (error) {
+                console.error("Google login failed:", error);
+                message.textContent = error.message;
+                message.style.display = "block";
+            }
+        };
+
+        // Facebook Login
+        facebookLoginBtn.onclick = async () => {
+            const provider = new FacebookAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+                await saveProfileAndRedirect();
+            } catch (error) {
+                console.error("Facebook login failed:", error);
+                message.textContent = error.message;
+                message.style.display = "block";
+            }
+        };
+    </script>
+    <script>
+        // Redirect to index.html if already logged in
+        if (localStorage.getItem('libraryUserSimple')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

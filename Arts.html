@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Library with Category-Specific Cards</title>
+    <link rel="stylesheet" href="style.css"
+</head>
+<body>
+    <header class="header">
+        <div class="logo">The Library</div>
+        <div class="mobile-menu">&#9776;</div>
+        <nav>
+            <a href="index.html ">Home</a>
+            <a href="About.html" target="_blank">About Us</a>
+            <a href="#">Our Books</a>
+            <a href="#">Authors</a>
+            <a href="#">Events</a>
+            <a href="#">Contact Us</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </header>
+
+<!-- Top Categories Section -->
+<section class="top-categories">
+    <h2>Our Top Categories</h2>
+    <div class="tabs">
+        <button class="tab-link active" data-category="arts">Arts & Photography</button>
+        <button class="tab-link" data-category="biographies">Biographies & Memoirs</button>
+        <button class="tab-link" data-category="business">Business</button>
+        <button class="tab-link" data-category="computers">Computers & Internet</button>
+    </div>
+
+    <!-- Arts & Photography Category Cards -->
+    <div class="category-cards active" data-category="arts">
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Arts Book 1">
+            <div class="card-content">
+                <h3>Arts Book 1</h3>
+                <p>Description of Arts Book 1</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Arts Book 2">
+            <div class="card-content">
+                <h3>Arts Book 2</h3>
+                <p>Description of Arts Book 2</p>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+
+    <!-- Biographies & Memoirs Category Cards -->
+    <div class="category-cards" data-category="biographies">
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Biography Book 1">
+            <div class="card-content">
+                <h3>Biography Book 1</h3>
+                <p>Description of Biography Book 1</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Biography Book 2">
+            <div class="card-content">
+                <h3>Biography Book 2</h3>
+                <p>Description of Biography Book 2</p>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+    <!-- Business Category Cards -->
+    <div class="category-cards" data-category="business">
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Business Book 1">
+            <div class="card-content">
+                <h3>Business Book 1</h3>
+                <p>Description of Business Book 1</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Business Book 2">
+            <div class="card-content">
+                <h3>Business Book 2</h3>
+                <p>Description of Business Book 2</p>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+
+    <!-- Computers & Internet Category Cards -->
+    <div class="category-cards" data-category="computers">
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Computer Book 1">
+            <div class="card-content">
+                <h3>Computer Book 1</h3>
+                <p>Description of Computer Book 1</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Computer Book 2">
+            <div class="card-content">
+                <h3>Computer Book 2</h3>
+                <p>Description of Computer Book 2</p>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</section>
+
+<script>
+    // Handle tab switching
+    const tabs = document.querySelectorAll('.tab-link');
+    const cardContainers = document.querySelectorAll('.category-cards');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Hide all card containers and show the related one
+            const category = tab.getAttribute('data-category');
+            cardContainers.forEach(container => {
+                if (container.getAttribute('data-category') === category) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+

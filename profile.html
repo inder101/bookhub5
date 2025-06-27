@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #f3f4f6;
+            --bg: #fff;
+            --text: #222;
+            --card: #f9fafb;
+            --shadow: 0 2px 12px rgba(0,0,0,0.07);
+            --radius: 12px;
+            --transition: 0.2s;
+        }
+        [data-theme="dark"] {
+            --primary: #6366f1;
+            --secondary: #23272f;
+            --bg: #18181b;
+            --text: #f3f4f6;
+            --card: #23272f;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            min-height: 100vh;
+            transition: background var(--transition), color var(--transition);
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        aside {
+            background: var(--secondary);
+            min-width: 260px;
+            padding: 2rem 1rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            background: #e0e7ef;
+            object-fit: cover;
+        }
+        .sidebar-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background var(--transition);
+        }
+        .sidebar-btn:hover {
+            background: #3730a3;
+        }
+        .dark-toggle {
+            margin-top: 2rem;
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 1.1rem;
+            background: none;
+            border: none;
+        }
+        main {
+            flex: 1;
+            padding: 2rem 3vw;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .profile-info h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .profile-info .membership {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .profile-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .meta-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .meta-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .lists-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+        .list-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.2rem 1rem;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .list-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .empty-list {
+            color: #aaa;
+            font-size: 0.98rem;
+        }
+        .goals-progress {
+            width: 100%;
+            background: #e5e7eb;
+            border-radius: 8px;
+            height: 12px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .goals-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.4s;
+        }
+        .edit-modal-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .edit-modal {
+            background: var(--bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 2.5rem;
+            min-width: 320px;
+            max-width: 95vw;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+        .edit-modal label {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .edit-modal input, .edit-modal select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            background: var(--card);
+            color: var(--text);
+            transition: border var(--transition);
+        }
+        .edit-modal input:focus, .edit-modal select:focus {
+            border: 1.5px solid var(--primary);
+            outline: none;
+        }
+        .edit-modal .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        .edit-modal .modal-btn {
+            padding: 0.6rem 1.3rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--primary);
+            color: #fff;
+            transition: background var(--transition);
+        }
+        .edit-modal .modal-btn.cancel {
+            background: #aaa;
+        }
+        .edit-modal .close-x {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.3rem;
+            color: #888;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            aside {
+                flex-direction: row;
+                min-width: unset;
+                padding: 1rem 0.5rem;
+                gap: 1rem;
+                justify-content: center;
+            }
+            main {
+                padding: 1.2rem 2vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .profile-meta {
+                gap: 1rem;
+            }
+            .lists-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <button onclick="window.location.href='index.html'" class="sidebar-btn" style="margin-bottom:1rem;background:#e0e7ef;color:#222;font-weight:600;">← Back to Home</button>
+            <img id="avatar" class="avatar" src="" alt="User Avatar">
+            <button class="sidebar-btn" id="editProfileBtn">Edit Profile</button>
+            <button class="sidebar-btn" id="logoutBtn" style="background:#aaa;">Logout</button>
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙 Dark Mode</button>
+        </aside>
+        <main>
+            <section class="profile-header">
+                <div class="profile-info">
+                    <h2 id="fullName"></h2>
+                    <div id="email"></div>
+                    <div class="membership" id="membership"></div>
+                </div>
+            </section>
+            <section class="profile-meta" id="profileMeta">
+                <!-- Membership Info Cards -->
+            </section>
+            <section class="lists-section">
+                <div class="list-card">
+                    <h3>Borrowed Books</h3>
+                    <ul id="borrowedBooks" class="empty-list">No books borrowed yet.</ul>
+                </div>
+                <div class="list-card">
+                    <h3>Reading History</h3>
+                    <ul id="readingHistory" class="empty-list">No reading history yet.</ul>
+                </div>
+                <div class="list-card">
+                    <h3>Wishlist</h3>
+                    <ul id="wishlist" class="empty-list">No books in wishlist.</ul>
+                    <form id="addWishlistForm" style="margin-top:0.7rem;display:flex;gap:0.5rem;">
+                        <input type="text" id="wishlistInput" placeholder="Add book title..." autocomplete="off" style="flex:1;">
+                        <button type="submit" style="background:var(--primary);color:#fff;border:none;padding:0.4rem 1rem;border-radius:6px;cursor:pointer;">Add</button>
+                    </form>
+                </div>
+                <div class="list-card">
+                    <h3>Reading Goals</h3>
+                    <div>
+                        <span id="goalsText">No goals set.</span>
+                        <div class="goals-progress"><div class="goals-bar" id="goalsBar"></div></div>
+                    </div>
+                    <form id="goalsForm" style="margin-top:0.7rem;display:flex;gap:0.5rem;">
+                        <input type="number" id="goalsInput" min="1" placeholder="Books to read..." style="flex:1;">
+                        <button type="submit" style="background:var(--primary);color:#fff;border:none;padding:0.4rem 1rem;border-radius:6px;cursor:pointer;">Set</button>
+                    </form>
+                </div>
+                <div class="list-card">
+                    <h3>Notifications</h3>
+                    <ul id="notifications" class="empty-list">No notifications.</ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Edit Profile Modal -->
+    <div id="editModalBg" class="edit-modal-bg" style="display:none;">
+        <form class="edit-modal" id="editProfileForm" autocomplete="off">
+            <button type="button" class="close-x" id="closeEditModal">&times;</button>
+            <label for="editFullName">Full Name</label>
+            <input type="text" id="editFullName" required>
+            <label for="editEmail">Email</label>
+            <input type="email" id="editEmail" required>
+            <label for="editUsername">Username (optional)</label>
+            <input type="text" id="editUsername">
+            <label for="editMembership">Membership Type</label>
+            <select id="editMembership" required>
+                <option value="Basic">Basic</option>
+                <option value="Premium">Premium</option>
+                <option value="Gold">Gold</option>
+            </select>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn cancel" id="cancelEditBtn">Cancel</button>
+                <button type="submit" class="modal-btn">Save</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('libraryTheme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <script type="module">
+        import { updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        // --- Helper Functions ---
+function getUser() {
+    const user = localStorage.getItem('libraryUser');
+    return user ? JSON.parse(user) : null;
+}
+function saveUser(user) {
+    localStorage.setItem('libraryUser', JSON.stringify(user));
+}
+function daysBetween(date1, date2) {
+    return Math.ceil((date2 - date1) / (1000 * 60 * 60 * 24));
+}
+function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString();
+}
+function generateMembershipID(email) {
+    // Simple hash for demo
+    return 'LIB' + btoa(email).replace(/[^A-Z0-9]/gi,'').slice(0,8).toUpperCase();
+}
+function getAvatarUrl(user) {
+    const seed = user.username || user.fullName || 'user';
+    return `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(seed)}`;
+}
+
+// --- Auth Check ---
+const user = getUser();
+if (!user) {
+    window.location.href = 'login.html';
+}
+
+// --- Membership Info ---
+if (!user.membershipID) {
+    user.membershipID = generateMembershipID(user.email);
+    user.joinDate = new Date().toISOString();
+    user.expiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
+    saveUser(user);
+}
+
+// --- Render Profile ---
+document.getElementById('avatar').src = getAvatarUrl(user);
+document.getElementById('fullName').textContent = user.fullName;
+document.getElementById('email').textContent = user.email;
+document.getElementById('membership').textContent = user.membershipType + ' Member';
+
+// Membership Info Cards
+document.getElementById('profileMeta').innerHTML = `
+    <div class="meta-card">
+        <span class="meta-label">Membership ID</span>
+        <span>${user.membershipID}</span>
+    </div>
+    <div class="meta-card">
+        <span class="meta-label">Joined</span>
+        <span>${formatDate(user.joinDate)}</span>
+    </div>
+    <div class="meta-card">
+        <span class="meta-label">Expires</span>
+        <span>${formatDate(user.expiryDate)}</span>
+    </div>
+    <div class="meta-card">
+        <span class="meta-label">Days Left</span>
+        <span>${daysBetween(new Date(), new Date(user.expiryDate))}</span>
+    </div>
+`;
+
+// --- Lists ---
+function renderList(id, arr, emptyMsg, renderItem) {
+    const ul = document.getElementById(id);
+    ul.innerHTML = '';
+    if (!arr || arr.length === 0) {
+        ul.classList.add('empty-list');
+        ul.textContent = emptyMsg;
+        return;
+    }
+    ul.classList.remove('empty-list');
+    arr.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.justifyContent = 'space-between';
+        li.style.alignItems = 'center';
+        li.style.padding = '2px 0';
+        li.innerHTML = renderItem ? renderItem(item, idx) : item;
+        ul.appendChild(li);
+    });
+}
+
+// Borrowed Books, Reading History, Wishlist
+user.borrowedBooks = user.borrowedBooks || [];
+user.readingHistory = user.readingHistory || [];
+user.wishlist = user.wishlist || [];
+user.goals = user.goals || { target: 0, progress: 0 };
+user.notifications = user.notifications || [];
+saveUser(user);
+
+renderList('borrowedBooks', user.borrowedBooks, 'No books borrowed yet.');
+renderList('readingHistory', user.readingHistory, 'No reading history yet.');
+renderList('wishlist', user.wishlist, 'No books in wishlist.', (item, idx) =>
+    `<span>${item}</span> <button data-wishidx="${idx}" style="background:none;border:none;color:#e11d48;cursor:pointer;font-size:1.1rem;">&times;</button>`
+);
+renderList('notifications', user.notifications, 'No notifications.');
+
+// Wishlist Remove
+document.getElementById('wishlist').onclick = function(e) {
+    if (e.target.dataset.wishidx !== undefined) {
+        user.wishlist.splice(Number(e.target.dataset.wishidx), 1);
+        saveUser(user);
+        renderList('wishlist', user.wishlist, 'No books in wishlist.', (item, idx) =>
+            `<span>${item}</span> <button data-wishidx="${idx}" style="background:none;border:none;color:#e11d48;cursor:pointer;font-size:1.1rem;">&times;</button>`
+        );
+    }
+};
+// Wishlist Add
+document.getElementById('addWishlistForm').onsubmit = function(e) {
+    e.preventDefault();
+    const val = document.getElementById('wishlistInput').value.trim();
+    if (val) {
+        user.wishlist.push(val);
+        saveUser(user);
+        renderList('wishlist', user.wishlist, 'No books in wishlist.', (item, idx) =>
+            `<span>${item}</span> <button data-wishidx="${idx}" style="background:none;border:none;color:#e11d48;cursor:pointer;font-size:1.1rem;">&times;</button>`
+        );
+        document.getElementById('wishlistInput').value = '';
+    }
+};
+
+// --- Goals ---
+function updateGoalsUI() {
+    const goals = user.goals;
+    const text = document.getElementById('goalsText');
+    const bar = document.getElementById('goalsBar');
+    if (!goals.target || goals.target < 1) {
+        text.textContent = 'No goals set.';
+        bar.style.width = '0%';
+    } else {
+        text.textContent = `Progress: ${goals.progress || 0} / ${goals.target} books`;
+        bar.style.width = `${Math.min(100, ((goals.progress || 0) / goals.target) * 100)}%`;
+    }
+}
+updateGoalsUI();
+document.getElementById('goalsForm').onsubmit = function(e) {
+    e.preventDefault();
+    const val = Number(document.getElementById('goalsInput').value);
+    if (val > 0) {
+        user.goals.target = val;
+        user.goals.progress = 0;
+        saveUser(user);
+        updateGoalsUI();
+        document.getElementById('goalsInput').value = '';
+    }
+};
+
+// --- Edit Profile Modal ---
+const editModalBg = document.getElementById('editModalBg');
+document.getElementById('editProfileBtn').onclick = function() {
+    document.getElementById('editFullName').value = user.fullName;
+    document.getElementById('editEmail').value = user.email;
+    document.getElementById('editUsername').value = user.username || '';
+    document.getElementById('editMembership').value = user.membershipType;
+    editModalBg.style.display = 'flex';
+};
+document.getElementById('closeEditModal').onclick =
+document.getElementById('cancelEditBtn').onclick = function() {
+    editModalBg.style.display = 'none';
+};
+document.getElementById('editProfileForm').onsubmit = function(e) {
+    e.preventDefault();
+    user.fullName = document.getElementById('editFullName').value.trim();
+    user.email = document.getElementById('editEmail').value.trim();
+    user.username = document.getElementById('editUsername').value.trim();
+    user.membershipType = document.getElementById('editMembership').value;
+    saveUser(user);
+    location.reload();
+};
+
+// --- Logout ---
+document.getElementById('logoutBtn').onclick = function() {
+    localStorage.removeItem('libraryUser');
+    window.location.href = 'login.html';
+};
+
+// --- Dark Mode ---
+const darkToggle = document.getElementById('darkToggle');
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('libraryTheme', theme);
+    darkToggle.textContent = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
+darkToggle.onclick = function() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    setTheme(theme);
+};
+// On load, set theme
+(function() {
+    const theme = localStorage.getItem('libraryTheme') || 'light';
+    setTheme(theme);
+})();
+// End of profile page script. All logic is now clean and up to date.
+    </script>
+</body>
+</html>

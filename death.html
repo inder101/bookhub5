@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>The Library</h1>
+            <div class="menu-toggle">
+                <span class="bar1"></span>
+                <span class="bar2"></span>
+                <span class="bar3"></span>
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>&nbsp;&nbsp;&nbsp;&nbsp;   
+                    <li><a href="About.html">About</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="contact.html">Contact</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="author.html">Authors</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="heress1">
+        <div class="container01">
+            <h1>One peice</h1>
+        </div>
+    </section>
+
+    <section class="blog-posts">
+        <div class="container2">
+            <article class="post">
+                <img src="one1.jpg" alt="Book Cover">
+                <h2> One peice (v1)</h2>
+                <p>Volume 1 of One Piece introduces Monkey D. Luffy, a spirited young pirate with the power of the Gum-Gum Fruit. Luffy sets out on a journey to find the legendary One Piece treasure, meeting allies like Zoro as he begins to build his crew and set sail for adventure.</p>
+                <a href="One Piece Volume 001 - PDF Room.pdf" class="read-more">Read Now</a>
+            </article>
+            <article class="post">
+                <img src="one2.jpg" alt="Book Cover">
+                <h2>One peice (v2)</h2>
+                <p>In Volume 2 of One Piece, Luffy and Zoro continue their quest, encountering Nami, a skilled navigator with a mysterious past. The trio faces off against the notorious pirate Buggy the Clown, showcasing their growing strength and camaraderie as a team.</p>
+                <a href="One Piece Volume 002 - PDF Room.pdf" class="read-more">Read Now</a>
+            </article>
+            <article class="post"><!--600*400-->
+                <img src="one3.jpg" alt="Book Cover">
+                <h2>One peice (V3)</h2>
+                <p>Volume 3 of One Piece sees Luffy, Zoro, and Nami battling Buggy's crew as they work to protect a small village. The volume delves into Nami's motivations and introduces the idea that their crew is more than just a band of pirates, but a group bound by friendship and shared dreams.</p>
+                <a href="One Piece Volume 003 - PDF Room.pdf" class="read-more">Read Now</a>
+            </article>
+            <h2>Next volumes will come soon...></h2>
+
+        </div>
+        
+    </section>
+
+    <footer>
+        <div class="container2">
+            <p>&copy; 2024 Book Library Blog. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Handle mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+    </script>
+</body>
+</html>
